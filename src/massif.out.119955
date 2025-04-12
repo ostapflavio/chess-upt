@@ -1,0 +1,1035 @@
+desc: (none)
+cmd: ./a.out
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=162030
+mem_heap_B=5
+mem_heap_extra_B=19
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=162298
+mem_heap_B=5
+mem_heap_extra_B=19
+mem_stacks_B=0
+heap_tree=detailed
+n1: 5 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 5 0x48ABDE0: _nl_normalize_codeset (l10nflist.c:332)
+  n1: 5 0x48A3194: _nl_load_locale_from_archive (loadarchive.c:173)
+   n1: 5 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 5 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 5 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+#-----------
+snapshot=3
+#-----------
+time=162298
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=162708
+mem_heap_B=120
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=162775
+mem_heap_B=132
+mem_heap_extra_B=28
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=162901
+mem_heap_B=924
+mem_heap_extra_B=44
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=164453
+mem_heap_B=1028
+mem_heap_extra_B=60
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=164618
+mem_heap_B=2356
+mem_heap_extra_B=68
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=166945
+mem_heap_B=2564
+mem_heap_extra_B=76
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=167432
+mem_heap_B=2988
+mem_heap_extra_B=92
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=168466
+mem_heap_B=3084
+mem_heap_extra_B=100
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=168687
+mem_heap_B=3164
+mem_heap_extra_B=108
+mem_stacks_B=0
+heap_tree=detailed
+n4: 3164 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2240 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2240 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2240 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2240 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2240 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 12 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=13
+#-----------
+time=168870
+mem_heap_B=3276
+mem_heap_extra_B=116
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=169129
+mem_heap_B=3436
+mem_heap_extra_B=124
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=169502
+mem_heap_B=3532
+mem_heap_extra_B=132
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=169723
+mem_heap_B=3604
+mem_heap_extra_B=148
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=169887
+mem_heap_B=3788
+mem_heap_extra_B=164
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=170367
+mem_heap_B=3800
+mem_heap_extra_B=176
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=172720
+mem_heap_B=3812
+mem_heap_extra_B=188
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=175073
+mem_heap_B=3824
+mem_heap_extra_B=200
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=177426
+mem_heap_B=3836
+mem_heap_extra_B=212
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=179779
+mem_heap_B=3848
+mem_heap_extra_B=224
+mem_stacks_B=0
+heap_tree=detailed
+n5: 3848 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n2: 72 0x491F35E: strdup (strdup.c:42)
+  n1: 60 0x48A5AFF: setlocale (setlocale.c:366)
+   n0: 60 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 12 in 1 place, below massif's threshold (1.00%)
+ n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=23
+#-----------
+time=182105
+mem_heap_B=3860
+mem_heap_extra_B=236
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=184428
+mem_heap_B=3872
+mem_heap_extra_B=248
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=186754
+mem_heap_B=3884
+mem_heap_extra_B=260
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=189080
+mem_heap_B=3896
+mem_heap_extra_B=272
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=191406
+mem_heap_B=3908
+mem_heap_extra_B=284
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=193732
+mem_heap_B=3920
+mem_heap_extra_B=296
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=196058
+mem_heap_B=3932
+mem_heap_extra_B=308
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=197027
+mem_heap_B=3944
+mem_heap_extra_B=320
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=197509
+mem_heap_B=4008
+mem_heap_extra_B=328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=197556
+mem_heap_B=4040
+mem_heap_extra_B=336
+mem_stacks_B=0
+heap_tree=detailed
+n6: 4040 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n2: 156 0x491F35E: strdup (strdup.c:42)
+  n1: 144 0x48A5AFF: setlocale (setlocale.c:366)
+   n0: 144 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 12 in 1 place, below massif's threshold (1.00%)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 64 0x1091BF: create_initial_chess_board (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 64 0x1097C4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 44 in 3 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=33
+#-----------
+time=197602
+mem_heap_B=4072
+mem_heap_extra_B=344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=197648
+mem_heap_B=4104
+mem_heap_extra_B=352
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=197694
+mem_heap_B=4136
+mem_heap_extra_B=360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=197740
+mem_heap_B=4168
+mem_heap_extra_B=368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=197786
+mem_heap_B=4200
+mem_heap_extra_B=376
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=197832
+mem_heap_B=4232
+mem_heap_extra_B=384
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=197878
+mem_heap_B=4264
+mem_heap_extra_B=392
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=199148
+mem_heap_B=4296
+mem_heap_extra_B=400
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=200800
+mem_heap_B=4504
+mem_heap_extra_B=408
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=201678
+mem_heap_B=4712
+mem_heap_extra_B=416
+mem_stacks_B=0
+heap_tree=detailed
+n9: 4712 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 256 0x1091EB: create_initial_chess_board (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 256 0x1097C4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1434: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936D9A: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936D9A: __wcsmbs_load_conv (wcsmbsload.c:187)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1512: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936DD2: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936DD2: __wcsmbs_load_conv (wcsmbsload.c:190)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n2: 156 0x491F35E: strdup (strdup.c:42)
+  n1: 144 0x48A5AFF: setlocale (setlocale.c:366)
+   n0: 144 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 12 in 1 place, below massif's threshold (1.00%)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 64 0x1091BF: create_initial_chess_board (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 64 0x1097C4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 44 in 3 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=43
+#-----------
+time=202490
+mem_heap_B=5736
+mem_heap_extra_B=424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=202582
+mem_heap_B=9832
+mem_heap_extra_B=432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=358015
+mem_heap_B=9832
+mem_heap_extra_B=432
+mem_stacks_B=0
+heap_tree=peak
+n10: 9832 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 4096 0x48F18EF: _IO_wfile_doallocate (wfiledoalloc.c:79)
+  n1: 4096 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+   n1: 4096 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+    n1: 4096 0x48F5C52: __woverflow (wgenops.c:215)
+     n1: 4096 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+      n1: 4096 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+       n1: 4096 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+        n1: 4096 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+         n1: 4096 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+          n1: 4096 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+           n1: 4096 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+            n1: 4096 0x48F50E2: wprintf (wprintf.c:32)
+             n1: 4096 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+              n0: 4096 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 1024 0x48F01B4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F191C: _IO_wfile_doallocate (wfiledoalloc.c:70)
+   n1: 1024 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+    n1: 1024 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+     n1: 1024 0x48F5C52: __woverflow (wgenops.c:215)
+      n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+       n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+        n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+         n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+          n1: 1024 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+           n1: 1024 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+            n1: 1024 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+             n1: 1024 0x48F50E2: wprintf (wprintf.c:32)
+              n1: 1024 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+               n0: 1024 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 256 0x1091EB: create_initial_chess_board (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 256 0x1097C4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1434: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936D9A: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936D9A: __wcsmbs_load_conv (wcsmbsload.c:187)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1512: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936DD2: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936DD2: __wcsmbs_load_conv (wcsmbsload.c:190)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n2: 156 0x491F35E: strdup (strdup.c:42)
+  n1: 144 0x48A5AFF: setlocale (setlocale.c:366)
+   n0: 144 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 12 in 1 place, below massif's threshold (1.00%)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 108 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=46
+#-----------
+time=358015
+mem_heap_B=9800
+mem_heap_extra_B=424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=358054
+mem_heap_B=9768
+mem_heap_extra_B=416
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=358093
+mem_heap_B=9736
+mem_heap_extra_B=408
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=358132
+mem_heap_B=9704
+mem_heap_extra_B=400
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=358171
+mem_heap_B=9672
+mem_heap_extra_B=392
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=358210
+mem_heap_B=9640
+mem_heap_extra_B=384
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=358249
+mem_heap_B=9608
+mem_heap_extra_B=376
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=358288
+mem_heap_B=9576
+mem_heap_extra_B=368
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=358322
+mem_heap_B=9512
+mem_heap_extra_B=360
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=55
+#-----------
+time=360098
+mem_heap_B=5416
+mem_heap_extra_B=352
+mem_stacks_B=0
+heap_tree=detailed
+n8: 5416 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 1024 0x48F01B4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F191C: _IO_wfile_doallocate (wfiledoalloc.c:70)
+   n1: 1024 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+    n1: 1024 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+     n1: 1024 0x48F5C52: __woverflow (wgenops.c:215)
+      n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+       n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+        n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+         n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+          n1: 1024 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+           n1: 1024 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+            n1: 1024 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+             n1: 1024 0x48F50E2: wprintf (wprintf.c:32)
+              n1: 1024 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+               n0: 1024 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1434: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936D9A: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936D9A: __wcsmbs_load_conv (wcsmbsload.c:187)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1512: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936DD2: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936DD2: __wcsmbs_load_conv (wcsmbsload.c:190)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n2: 156 0x491F35E: strdup (strdup.c:42)
+  n1: 144 0x48A5AFF: setlocale (setlocale.c:366)
+   n0: 144 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+  n0: 12 in 1 place, below massif's threshold (1.00%)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 44 in 6 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=56
+#-----------
+time=361059
+mem_heap_B=5404
+mem_heap_extra_B=340
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=361118
+mem_heap_B=5392
+mem_heap_extra_B=328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=361177
+mem_heap_B=5380
+mem_heap_extra_B=316
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=361236
+mem_heap_B=5368
+mem_heap_extra_B=304
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=361295
+mem_heap_B=5356
+mem_heap_extra_B=292
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=361354
+mem_heap_B=5344
+mem_heap_extra_B=280
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=361415
+mem_heap_B=5332
+mem_heap_extra_B=268
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=361474
+mem_heap_B=5320
+mem_heap_extra_B=256
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=361533
+mem_heap_B=5308
+mem_heap_extra_B=244
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=65
+#-----------
+time=361592
+mem_heap_B=5296
+mem_heap_extra_B=232
+mem_stacks_B=0
+heap_tree=detailed
+n7: 5296 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 2864 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 2864 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 2864 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 2864 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 2864 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 1024 0x48F01B4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F191C: _IO_wfile_doallocate (wfiledoalloc.c:70)
+   n1: 1024 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+    n1: 1024 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+     n1: 1024 0x48F5C52: __woverflow (wgenops.c:215)
+      n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+       n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+        n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+         n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+          n1: 1024 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+           n1: 1024 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+            n1: 1024 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+             n1: 1024 0x48F50E2: wprintf (wprintf.c:32)
+              n1: 1024 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+               n0: 1024 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 792 0x48A363F: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 792 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 792 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 792 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 792 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1434: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936D9A: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936D9A: __wcsmbs_load_conv (wcsmbsload.c:187)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 208 0x48A1512: __gconv_lookup_cache (gconv_cache.c:361)
+  n1: 208 0x48974F0: __gconv_find_transform (gconv_db.c:717)
+   n1: 208 0x4936DD2: __wcsmbs_getfct (wcsmbsload.c:91)
+    n1: 208 0x4936DD2: __wcsmbs_load_conv (wcsmbsload.c:190)
+     n1: 208 0x4936FBC: get_gconv_fcts (wcsmbsload.h:71)
+      n1: 208 0x4936FBC: __wcsmbs_clone_conv (wcsmbsload.c:220)
+       n1: 208 0x48F8E5E: _IO_fwide (iofwide.c:79)
+        n1: 208 0x48E409C: __vfwprintf_internal (vfprintf-internal.c:1525)
+         n1: 208 0x48F50E2: wprintf (wprintf.c:32)
+          n1: 208 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+           n0: 208 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 80 in 7 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=66
+#-----------
+time=361651
+mem_heap_B=5284
+mem_heap_extra_B=220
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=361710
+mem_heap_B=5272
+mem_heap_extra_B=208
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=361752
+mem_heap_B=5260
+mem_heap_extra_B=196
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=361805
+mem_heap_B=5248
+mem_heap_extra_B=184
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=361905
+mem_heap_B=5040
+mem_heap_extra_B=176
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=361988
+mem_heap_B=4832
+mem_heap_extra_B=168
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=362031
+mem_heap_B=4800
+mem_heap_extra_B=160
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=362075
+mem_heap_B=4008
+mem_heap_extra_B=144
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=362135
+mem_heap_B=3904
+mem_heap_extra_B=128
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=75
+#-----------
+time=362209
+mem_heap_B=2576
+mem_heap_extra_B=120
+mem_stacks_B=0
+heap_tree=detailed
+n4: 2576 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1432 0x48A3543: _nl_intern_locale_data (loadlocale.c:156)
+  n1: 1432 0x48A3112: _nl_load_locale_from_archive (loadarchive.c:477)
+   n1: 1432 0x48A22BC: _nl_find_locale (findlocale.c:152)
+    n1: 1432 0x48A57F4: setlocale (setlocale.c:337)
+     n0: 1432 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 1024 0x48F01B4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F191C: _IO_wfile_doallocate (wfiledoalloc.c:70)
+   n1: 1024 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+    n1: 1024 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+     n1: 1024 0x48F5C52: __woverflow (wgenops.c:215)
+      n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+       n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+        n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+         n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+          n1: 1024 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+           n1: 1024 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+            n1: 1024 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+             n1: 1024 0x48F50E2: wprintf (wprintf.c:32)
+              n1: 1024 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+               n0: 1024 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n1: 120 0x48A309E: _nl_load_locale_from_archive (loadarchive.c:460)
+  n1: 120 0x48A22BC: _nl_find_locale (findlocale.c:152)
+   n1: 120 0x48A57F4: setlocale (setlocale.c:337)
+    n0: 120 0x1097BA: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 0 in 10 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=76
+#-----------
+time=362269
+mem_heap_B=2368
+mem_heap_extra_B=112
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=362329
+mem_heap_B=1944
+mem_heap_extra_B=96
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=362389
+mem_heap_B=1848
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=362449
+mem_heap_B=1768
+mem_heap_extra_B=80
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=362509
+mem_heap_B=1656
+mem_heap_extra_B=72
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=362569
+mem_heap_B=1496
+mem_heap_extra_B=64
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=362629
+mem_heap_B=1400
+mem_heap_extra_B=56
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=362689
+mem_heap_B=1328
+mem_heap_extra_B=40
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=84
+#-----------
+time=362749
+mem_heap_B=1144
+mem_heap_extra_B=24
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=85
+#-----------
+time=362782
+mem_heap_B=1024
+mem_heap_extra_B=8
+mem_stacks_B=0
+heap_tree=detailed
+n2: 1024 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 1024 0x48F01B4: _IO_file_doallocate (filedoalloc.c:101)
+  n1: 1024 0x48F191C: _IO_wfile_doallocate (wfiledoalloc.c:70)
+   n1: 1024 0x48F5EA6: _IO_wdoallocbuf (wgenops.c:369)
+    n1: 1024 0x48F7EFC: _IO_wfile_overflow (wfileops.c:421)
+     n1: 1024 0x48F5C52: __woverflow (wgenops.c:215)
+      n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:315)
+       n1: 1024 0x48F5C52: _IO_wdefault_xsputn (wgenops.c:282)
+        n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:1010)
+         n1: 1024 0x48F8BC5: _IO_wfile_xsputn (wfileops.c:956)
+          n1: 1024 0x48EE075: __wprintf_buffer_flush_to_file (wprintf_buffer_to_file.c:31)
+           n1: 1024 0x48EE075: __wprintf_buffer_to_file_done (wprintf_buffer_to_file.c:53)
+            n1: 1024 0x48E42A2: __vfwprintf_internal (vfprintf-internal.c:1545)
+             n1: 1024 0x48F50E2: wprintf (wprintf.c:32)
+              n1: 1024 0x109487: draw_board_white (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+               n0: 1024 0x1097D4: main (in /home/wunka/flavio/uni/TP/chess-upt/src/a.out)
+ n0: 0 in 12 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=86
+#-----------
+time=362948
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty

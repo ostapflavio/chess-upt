@@ -2,47 +2,15 @@
 #include <wchar.h>
 #include <locale.h>
 #include <stdlib.h>
-
-#define WHITE 0 
-#define BLACK 1 
-
-wchar_t white_king    = L'\u265A';
-wchar_t white_queen   = L'\u265B';
-wchar_t white_rook    = L'\u265C';
-wchar_t white_bishop  = L'\u265D';
-wchar_t white_knight  = L'\u265E';
-wchar_t white_pawn    = L'\u265F';
-
-wchar_t black_king    = L'\u2654';
-wchar_t black_queen   = L'\u2655';
-wchar_t black_rook    = L'\u2656';
-wchar_t black_bishop  = L'\u2657';
-wchar_t black_knight  = L'\u2658';
-wchar_t black_pawn    = L'\u2659';
-
-wchar_t empty = ' ';
+#include "../headers/chess_symbols.h"
 
 wchar_t** create_initial_chess_board() {
     // I must allocate dinamically the chess board, in order to pass it to another user 
-    wchar_t** arr = malloc(sizeof(wchar_t*) * 8); 
+    wchar_t** board = malloc(sizeof(wchar_t*) * 8); 
     for(int i = 0; i < 8; i++) {
-        arr[i] = malloc(sizeof(wchar_t) * 8); 
+        board[i] = malloc(sizeof(wchar_t) * 8); 
     }
 
-
-    return arr; 
-}
-
-void free_board(wchar_t** board) {
-    for(int i = 0; i < 8; i++) {
-        free(board[i]); 
-    }
-    free(board);
-}
-
-wchar_t** draw_board_white() {
-    wchar_t** board = create_initial_chess_board(); 
-    // step 1: put figures on the board 
     board[0][0] = white_rook;
     board[0][1] = white_knight;
     board[0][2] = white_bishop;
@@ -61,7 +29,6 @@ wchar_t** draw_board_white() {
     board[7][6] = black_knight;
     board[7][7] = black_rook;
 
-
     for(int row = 1; row < 7; row++) {
         for(int col = 0; col < 8; col++) {
             if(row == 1){
@@ -75,7 +42,18 @@ wchar_t** draw_board_white() {
             }
         }
     }
-     
+
+    return board; 
+}
+
+void free_board(wchar_t** board) {
+    for(int i = 0; i < 8; i++) {
+        free(board[i]); 
+    }
+    free(board);
+}
+
+void draw_board_white(wchar_t** board) {
     // step 2: print the board (for white)
     wprintf(L"   ");
     for(int i = 0; i < 8; i++) {
@@ -97,8 +75,6 @@ wchar_t** draw_board_white() {
         wprintf(L"%c ", (wchar_t)('a' + i)); 
     }
     wprintf(L"\n"); 
-    // step 4: return the board 
-    return board;
 }
 
 void draw_board_black(wchar_t** board) {
@@ -130,7 +106,8 @@ void clear_screen() {
 
 int main() {
     setlocale(LC_ALL, ""); // command that enables the program to use user's current settings of localisation - needed for UTF-8 (i.e. now I can use )
-    wchar_t** my_board = draw_board_white();
+    wchar_t** my_board = create_initial_chess_board();
+    draw_board_white(my_board);
     clear_screen(); 
     draw_board_black(my_board);
     free_board(my_board);
