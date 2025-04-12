@@ -1,4 +1,9 @@
 // server side implementation of chess game 
+// what is required
+// 1. it should handle the validity of moves 
+// 2. it should get the state current state of the game 
+// 3. it should get moves from server player 
+// 4. it should get handle messages from the client player 
 #include <arpa/inet.h>
 #include <sys/socket.h> 
 #include <sys/types.h>
