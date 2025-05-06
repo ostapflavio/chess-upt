@@ -11,11 +11,8 @@
 
 bool are_valid_coordinates(wchar_t* move); 
 bool is_diagonal(wchar_t* move); 
-bool is_knight_move(wchar_t* move);
-bool is_pawn_move(wchar_t* move, int color);
 bool is_vertical(wchar_t* move); 
 bool is_horizontal(wchar_t* move); 
-bool is_king_move(wchar_t* move); 
-
-
+bool bishop_trav(wchar_t* move, wchar_t** board); 
+bool rook_trav(wchar_t* move, wchar_t** board);
 #endif

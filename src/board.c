@@ -74,7 +74,8 @@ void draw_board_white(wchar_t** board) {
     for(int i = 0; i < 8; i++) {
         wprintf(L"%c ", (wchar_t)('a' + i)); 
     }
-    wprintf(L"\n"); 
+    wprintf(L"\n");
+    wprintf(L"happy exit!\n");
 }
 
 void draw_board_black(wchar_t** board) {
@@ -103,7 +104,7 @@ void draw_board_black(wchar_t** board) {
 void clear_screen() {
     wprintf(L"\033[2J\033[H"); 
 }
-
+/*
 int main() {
     setlocale(LC_ALL, ""); // command that enables the program to use user's current settings of localisation - needed for UTF-8 (i.e. now I can use )
     wchar_t** my_board = create_initial_chess_board();
@@ -113,5 +114,4 @@ int main() {
     free_board(my_board);
 }
 
-
-
+*/

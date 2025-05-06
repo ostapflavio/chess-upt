@@ -1,58 +1,48 @@
-// server side implementation of chess game 
-// what is required
-// 1. it should handle the validity of moves 
-// 2. it should get the state current state of the game 
-// 3. it should get moves from server player 
-// 4. it should get handle messages from the client player 
-#include <arpa/inet.h>
-#include <sys/socket.h> 
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <errno.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <unistd.h>
+#include <arpa/inet.h>
 
-#define PORT 4242
-#define MAX_QUEUE 10
-
+#define PORT 12345
+#define BUFFER_SIZE 1024
 
 int main() {
-    // server and client side file descriptors 
-    int serverfd = socket(AF_INET, SOCK_STREAM, 0);  
-    int clientfd;                                    
-    
-    // create the structure to represent the server side 
-    struct sockaddr_in sa; 
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    socklen_t addrlen = sizeof(address);
+    char buffer[BUFFER_SIZE] = {0};
 
-    // create the structure to represent the client connection 
-    struct sockaddr_in client_addr; 
-    socklen_t addr_size; 
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
 
-    // prepare the address and port for the server socket 
-    memset(&sa, 0, sizeof(sa));                         // allocate memory
-    sa.sin_family = AF_INET;                            // we work with IPv4 addresses 
-    sa.sin_addr.s_addr = htonl(INADDR_LOOPBACK);        // bind localhost as our address
-    sa.sin_port = htons(PORT);                          // bind our port number 
+    bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+    listen(server_fd, 1);
+    printf("Waiting for client...\n");
 
-    serverfd     =  socket(sa.sin_family, SOCK_STREAM, 0); 
-    int status   =  bind(serverfd, (struct sockaddr *)&sa, sizeof(sa)); 
-    if(status != 0) { 
-        fprintf(stderr, "We could not bind our IP address to our socket!"); 
-        exit(EXIT_FAILURE); 
+    new_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen);
+    printf("Client connected. You are playing Black.\n");
+
+    while (1) {
+        // Wait for White's move
+        read(new_socket, buffer, BUFFER_SIZE);
+        printf("White played: %s\n", buffer);
+        // If checkmate received -- gameover here
+        printf("it's checkmate, you lost!\n");
+
+        // Prompt for Black's move
+        printf("Your move (Black): ");
+        fgets(buffer, BUFFER_SIZE, stdin);
+        buffer[strcspn(buffer, "\n")] = 0; // remove newline
+
+        // Send move to client
+        send(new_socket, buffer, strlen(buffer), 0);
     }
 
-    printf("Successfully binded! Now we are listening to any incoming connections... \n");
-    listen(serverfd, MAX_QUEUE); 
-    
-
-    // accept incoming connection
-    addr_size = sizeof(client_addr); 
-    clientfd = accept(serverfd, (struct sockaddr *)&client_addr, &addr_size); 
-    if (clientfd == -1) {
-        fprintf(stderr, "accept: %s\n", strerror(errno)); 
-        exit(EXIT_FAILURE);
-    }
-    printf("New connection! Socket fd: %d, client: %d \n", serverfd, clientfd); 
+    close(new_socket);
+    close(server_fd);
+    return 0;
 }
+
