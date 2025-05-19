@@ -1,11 +1,18 @@
 // movement helper functions 
 #include "../headers/chess_helper.h"
+#include "../headers/board.h"
+#include <ctype.h>
+
+// these variables are used to keep track of the game state 
+extern bool white_king_moved, white_rook_h_moved, white_rook_a_moved;
+extern bool black_king_moved, black_rook_h_moved, black_rook_a_moved;
 
 bool is_diagonal(wchar_t* move); 
 bool are_valid_coordinates(wchar_t* move); 
 bool is_vertical(wchar_t* move); 
 bool is_horizontal(wchar_t* move); 
-
+bool king_trav(wchar_t* move, wchar_t** board);
+ 
 int get_color(wchar_t piece, int need_enemy) {
     int ans = -1; // just in case you wanted to put an empty square as a piece
     if(piece == white_knight || piece == white_king || piece == white_queen || piece == white_bishop || piece == white_pawn || piece == white_rook) {
@@ -25,7 +32,7 @@ int get_color(wchar_t piece, int need_enemy) {
     return ans;
 }
 
-// BLEA, TREBUIE X CU Y SA SCHIMB CA SA FIE OK CU TABLA CLASICA DE SAH 
+// бля,  TREBUIE X CU Y SA SCHIMB CA SA FIE OK CU TABLA CLASICA DE SAH 
 // bishop traverse should return if the path is full or not 
 // TRUE: the path is full (can't move there)
 // FALSE: the path is clear (can move)
@@ -69,30 +76,31 @@ bool bishop_trav(wchar_t* move, wchar_t** board) {
     return is_occupied; 
 }
 
-// TODO: there should be a check if client's piece that he wants to move is indeed black and the same for server side if the piece is black  
-bool is_knight_move(wchar_t* move, wchar_t** board) {
-    int distx = abs(move[0] - move[3]); 
-    int disty = abs(move[1] - move[4]); 
-     
+// true  -> illegal move 
+// false -> legal move 
+bool knight_trav(wchar_t* move, wchar_t** board) {
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
     int coord2[]     = {move[3] - 'a', move[4] - '1'}; 
     int x1           = coord1[0], y1 = coord1[1]; 
     int x2           = coord2[0], y2 = coord2[1]; 
 
-    int y = y2, x = x2; 
-    if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: is_knight_move() \n");
-        return false; 
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    bool is_knight_jump = (dx == 1 && dy == 2) || (dx == 2 && dy == 1);
+    if (!is_knight_jump) {
+        return true;                              
     }
-    bool clear_pass = false; 
-    bool distance_pass = ((distx == 1 && disty == 2) || (distx == 2 && disty == 1)); 
-    int enemy_color = get_color(board[y][x], 1);
-    if(board[y][x] == empty || get_color(board[y][x], 0) == enemy_color) {
-        clear_pass = true; 
-    }
-    
 
-    return distance_pass && clear_pass; 
+    wchar_t src_piece = board[y1][x1];
+    wchar_t dst_piece = board[y2][x2];
+
+    /* can’t land on a piece of the same colour */
+    if (dst_piece != empty && get_color(src_piece, 0) == get_color(dst_piece, 0)) {
+        return true;                              
+    }
+
+    /* everything passed → legal knight move */
+    return false;
 }
 // bishop traverse should return if the path is full or not 
 // TRUE: the path is full (can't move there)
@@ -103,7 +111,7 @@ bool rook_trav(wchar_t* move, wchar_t** board) {
         return true; 
     }
 
-    if(!is_horizontal(move) || !is_vertical(move)) {
+    if(!(is_horizontal(move) || is_vertical(move))) {
         fprintf(stderr, "source: rook_trav(), this is not a horizontal or vertical move!\n");
         return true; 
     }
@@ -116,25 +124,16 @@ bool rook_trav(wchar_t* move, wchar_t** board) {
     int dy = (y2 == y1 ? 0 : (y2 > y1 ? 1 : -1)); 
     
     bool is_occupied = false; 
-    int x = x1 + dx, y = y1 + dy; 
-    while(true) {
-        wprintf(L"x = %d and y = %d \n", x, y); 
-        if(x == x2 && y == y2) {
-            if(get_color(board[y][x], 0) == get_color(board[y1][x1], 0)){
-                    is_occupied = true; 
-            }
-            break; 
-        }
-
-        if(board[y][x] != empty) {
-            is_occupied = true; 
-            break; 
-        }
-        x += dx; 
-        y += dy; 
+    for(int x = x1 + dx, y = y1 + dy; x != x2 || y != y2; x += dx, y += dy) {
+        if (board[y][x] != empty) 
+            return true; 
     }
-    
-    wprintf(L"\n"); 
+    wchar_t src = board[y1][x1]; 
+    wchar_t dst = board[y2][x2]; 
+    if(dst != empty && get_color(src, 0) == get_color(dst, 0)){
+        is_occupied = true; 
+    }
+
     return is_occupied; 
 }
 bool queen_trav(wchar_t* move, wchar_t** board) {
@@ -143,70 +142,104 @@ bool queen_trav(wchar_t* move, wchar_t** board) {
         return true; 
     }
 
-    bool straight_line = is_vertical(move) || is_horizontal(move); 
-    if(!(is_vertical(move) || is_horizontal(move) || is_diagonal(move))){
+    bool straight_line = is_vertical(move) || is_horizontal(move);
+    bool diagonal_line = is_diagonal(move); 
+    if (!(straight_line || diagonal_line)){
         fprintf(stderr, "source: queen_trav(), this is a knight or another bogus move for queen!\n");
-        return true; 
-    }
-
-    bool ans; 
-    if(straight_line) {
-       ans = rook_trav(move, board); 
-    }
-    else{
-       ans = bishop_trav(move, board) ; 
-    }
-
-    return ans; 
-}
-
-bool pawn_trav(wchar_t* move, wchar_t** board) {
-    if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: pawn_trav() \n"); 
-        return true; 
+        return true;                              /* queen can’t move like that*/
     }
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
     int coord2[]     = {move[3] - 'a', move[4] - '1'}; 
     int x1           = coord1[0], y1 = coord1[1]; 
     int x2           = coord2[0], y2 = coord2[1]; 
-    int distx = (move[0] - move[3]);
-    int disty = (move[1] - move[4]);
-    
 
-    
-    bool is_occupied = false; 
-   
-    int color = get_color(board[y1][x1], 0);
-    int enemy_color = get_color(board[y1][x1], 0); 
-    
-    if(color == WHITE) {
-        if(is_diagonal(move)) {
-            if ( !(distx == 1 && disty == 1 && get_color(board[y2][x2], 0) == enemy_color) ){
-                is_occupied = true; 
-            }
-        }
-        else if(is_vertical(move)) {
-            if() {
+    int dx_raw = x2 - x1;
+    int dy_raw = y2 - y1;
 
-            }
-            else if() {
-                
-            }
-            else{
-                is_occupied = true; 
-            }
-        }
+    int dx = (dx_raw > 0) - (dx_raw < 0);         /* −1, 0, or +1             */
+    int dy = (dy_raw > 0) - (dy_raw < 0);         /* −1, 0, or +1             */
 
-        else{
-            // random bogus type of movement - impossible 
-            is_occupied = true; 
-        }
-    }
-    else{
 
-    }
+    /* 4. walk the lane (exclude destination square) ------------------- */
+    for (int x = x1 + dx, y = y1 + dy;  x != x2 || y != y2;  x += dx, y += dy)
+        if (board[y][x] != empty)                 /* piece blocks the way      */
+            return true;
+
+    /* 5. destination square ------------------------------------------- */
+    wchar_t src_piece = board[y1][x1];
+    wchar_t dst_piece = board[y2][x2];
+
+    /* can’t land on a piece of the same colour */
+    if (dst_piece != empty &&
+        get_color(src_piece, 0) == get_color(dst_piece, 0))
+        return true;
+
+    /* 6. everything passed → legal queen move ------------------------- */
+    return false;
 }
 
+bool is_enemy(wchar_t** board, wchar_t src, int x, int y) {
+    wchar_t p = board[y][x];
+    return p != empty && get_color(p, 0) == get_color(src, 1); 
+}
+
+bool is_empty(wchar_t** board, int x, int y) {
+    return board[y][x] == empty; 
+}
+
+bool pawn_trav(wchar_t *move, wchar_t** board)
+{
+    /* 1. basic syntax / coordinates on board */
+    if (!are_valid_coordinates(move))
+        return true;                                           /* illegal */
+
+    /* 2. source & destination indices (0-based) */
+    int x1 = move[0] - 'a';
+    int y1 = move[1] - '1';
+    int x2 = move[3] - 'a';
+    int y2 = move[4] - '1';
+
+    /* 3. source must in fact be a pawn */
+    wchar_t src = board[y1][x1];
+    if (src != white_pawn && src != black_pawn)
+        return true;                                           /* illegal */
+
+    /* pawn “colour” and movement direction */
+    int colour      = get_color(src, 0);       /* 0 = white, 1 = black (assumed) */
+    int dir         = (colour == 0) ? +1 : -1; /* white moves up (y++), black down */
+    int start_rank  = (colour == 0) ? 1  : 6;  /* y-index of rank 2 / rank 7      */
+    int promo_rank  = (colour == 0) ? 7  : 0;  /* y-index of rank 8 / rank 1      */
+
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+
+    /* destination piece */
+    wchar_t dst = board[y2][x2];
+
+
+    /* 4. test the three legal pawn patterns ---------------------------- */
+    bool legal = false;
+
+    /* 4.a single square forward */
+    if (dx == 0 && dy == dir && is_empty(board, x2, y2))
+        legal = true;
+
+    /* 4.b initial double step */
+    else if (dx == 0 && dy == 2*dir && y1 == start_rank &&
+             is_empty(board, x2, y2) && is_empty(board, x1, y1 + dir))
+        legal = true;
+
+    /* 4.c diagonal capture */
+    else if ((dx == 1 || dx == -1) && dy == dir && is_enemy(board, src, x2, y2))
+        legal = true;
+
+    /* promotion check */
+    if (legal && y2 == promo_rank)
+        legal = true;  /* nothing extra to do; promotion piece handled elsewhere */
+
+    /* 6. return TRUE if *illegal*, FALSE if legal */
+    return !legal;
+}
 bool are_valid_coordinates(wchar_t* move) {
     if(!move || wcslen(move) != 5 || move[2] != L'-') {
         fprintf(stderr, "ERROR (are_valid_coordinates()): we have incorrect coordinates!\n"); 
@@ -264,8 +297,10 @@ bool is_vertical(wchar_t* move) {
     return (disty == 0);  // x is responsibile for 1,2,3, ..., 8; y is responsibile for a,b,c, .... , h -- vertical means that we don't move on y axis 
 }
 
+
 // is_collision is also a function which verifies validity of the move, kek (there is a collision.... with logic....)
 bool is_collision(wchar_t* move, wchar_t** board) { 
+    // TODO: terminate to implement is_collision function 
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
     int coord2[]     = {move[3] - 'a', move[4] - '1'}; 
     int x1           = coord1[0], y1 = coord1[1]; 
@@ -281,39 +316,331 @@ bool is_collision(wchar_t* move, wchar_t** board) {
     }
 
     if(piece == white_knight || piece == black_knight) {
-        if(is_knight_move(move, board) && (board[y2][x2] == empty || get_color(board[y2][x2], 0) == enemy_color)) {
-            flag = false; 
-        } 
+        flag = knight_trav(move, board);
     }
-    if(piece == white_king || piece == black_king) {
-        if(board[y2][x2] == empty || get_color(board[y2][x2], 0) == enemy_color) {
-            flag = false; 
-        }
+    else if(piece == white_king || piece == black_king) {
+        flag = king_trav(move, board);
     }
-    if(piece == white_bishop || piece == black_bishop){
-        if(!is_diagonal(move)) {
-            flag = true; 
-        }
-        else{
-            flag = bishop_trav(move, board);
-        }
+    else if(piece == white_bishop || piece == black_bishop){
+       flag = bishop_trav(move, board);
     }
     if(piece == white_queen || piece == black_queen) {
-        if(board[y2][x2] == empty || get_color(board[y2][x2], 0) == enemy_color) {
-            flag = queen_trav(move, board);
-        }
+        flag = queen_trav(move, board);
     }
     if(piece == white_rook || piece == black_rook) {
-        if(board[y2][x2] == empty || get_color(board[y2][x2], 0) == enemy_color) {
-            flag = rook_trav(move, board);
-        }
+        flag = rook_trav(move, board);
     }
     if(piece == white_pawn || piece == black_pawn) {
-        if(board[y2][x2] == empty || get_color(board[y2][x2], 0) == enemy_color) {
-            flag = pawn_trav(move, board); 
-        }
+        flag = pawn_trav(move, board); 
     }
 
 
     return flag;  // true --> there is a collision and therefore the move is impossible; false --> vici-versa
+}
+
+
+// this trav function, also follows the same convention 
+// inputs: O - O or O - O - O 
+
+bool is_castle_move(wchar_t *move) {
+    return wcscmp(move, L"e1-g1") == 0
+        || wcscmp(move, L"e1-c1") == 0
+        || wcscmp(move, L"e8-g8") == 0
+        || wcscmp(move, L"e8-c8") == 0;
+}
+
+bool castling_trav(wchar_t* move, 
+                    wchar_t** board, 
+                    bool white_king_moved, 
+                    bool white_rook_h_moved,
+                    bool white_rook_a_moved,
+                    bool black_king_moved, 
+                    bool black_rook_h_moved, 
+                    bool black_rook_a_moved) 
+{
+    bool is_correct_move = is_castle_move(move); 
+    if(!is_correct_move) {
+        return true; 
+    }
+
+    bool legal = false; 
+    int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
+    int coord2[]     = {move[3] - 'a', move[4] - '1'}; 
+    int x1           = coord1[0], y1 = coord1[1]; 
+    int x2           = coord2[0], y2 = coord2[1]; 
+    
+    bool white_side = (get_color(board[y1][x1], 0) == WHITE);
+   
+    // expected start squares for kings 
+    if ((white_side && !(x1 == 4 && y1 == 0)) || (!white_side && !(x1 == 4 && y1 == 7))) {
+        return true; 
+    }
+
+    bool kingside  = (x2 == 6); // g-file  
+    bool queenside = (x2 == 2); // c-file 
+
+    if(!kingside && !queenside) {
+        return true;  // not a castling move 
+    }
+
+    // early exits: needed pieces moved 
+    if (white_side) {
+        if (white_king_moved)                return true; 
+        if (kingside && white_rook_h_moved)  return true; 
+        if (queenside && white_rook_a_moved) return true;
+    }
+    else{
+        if (black_king_moved)                return true; 
+        if (kingside && black_rook_h_moved)  return true; 
+        if (queenside && black_rook_a_moved) return true; 
+    }  
+    
+    // pieces must be in correct places 
+    wchar_t king     = white_side ? white_king : black_king; 
+    wchar_t rook_h   = white_side ? white_rook : black_rook; 
+    int y = y1; 
+    
+    // is king present?
+    if (board[y][4] != king)                 return true; 
+
+    // is rook present?
+    if (kingside) {
+        if(board[y][7] != rook_h)            return true; // rook not present 
+    }
+    else {
+        if(board[y][0] != (white_side ? white_rook : black_rook))
+                                             return true; // queen side not present 
+    }
+    
+    // path must be clear 
+    int x_from = kingside ? 5 : 1; 
+    int x_to   = kingside ? 6 : 3;
+
+    for (int x = x_from; x <= x_to; ++x) {
+        if (board[y][x] != empty) 
+            return true; // path blocked 
+    }
+
+    
+    // king may not be in check and may not cross attacked squares 
+    int color_attacker = 1 - get_color(board[y1][x1], 0);
+    
+    // e1 / e8
+    if(square_attacked(board, 4, y, color_attacker)) { return true; }
+
+    if(square_attacked(board, kingside ? 5 : 3, y, color_attacker)) { return true; }
+
+    if(square_attacked(board, kingside ? 6 : 2, y, color_attacker)) { return true; }
+
+    // paseed all my tests 
+    legal = true; 
+
+    return !legal; // TRUE = illegal, FALSE = legal; -- this is due to my stupid is_collision() function 
+}
+
+void build_move_str(wchar_t *s, int x1,int y1,int x2,int y2){
+    s[0] = (wchar_t)('a' + x1);  s[1] = (wchar_t)('1' + y1);
+    s[2] = L'-';
+    s[3] = (wchar_t)('a' + x2);  s[4] = (wchar_t)('1' + y2);
+    s[5] = 0;
+}
+
+bool square_attacked(wchar_t ** board, int x, int y, int attacker_color){
+    // true -> the square (x, y) is under attack 
+    // false -> the square is not attacked 
+    // NOTE: i can't have the move to the same square, we skip that move; this is occupied by our ally piece, not occupied  
+    wchar_t move[6]; 
+    
+    // iterate over the board to find the pieces 
+    for(int r = 0; r < 8; r++) {
+        for(int c = 0; c < 8; c++) {
+            if(c == x && r == y) continue; 
+            wchar_t piece = board[r][c]; 
+            
+            if (piece == empty) continue; 
+        
+            // does it belong to the attacker?
+            if(get_color(piece, 0) != attacker_color) continue; 
+            
+            // build from (c, r) to (x, y)
+            build_move_str(move, c, r, x, y);
+                
+            // determine the legality based on the piece 
+            bool legal = false;
+            // (piece)
+            {
+                // if it was possible to move the piece, then this is legal 
+                if(piece == white_rook   || piece == black_rook)    {     legal = (rook_trav(move, board) == false);     }
+                if(piece == white_bishop || piece == black_bishop)  {     legal = (bishop_trav(move, board) == false);   }
+                if(piece == white_knight || piece == black_knight)  {     legal = (knight_trav(move, board) == false);   }
+                if(piece == white_queen  || piece ==  black_queen)  {     legal = (queen_trav(move, board) == false);    }
+                if(piece == white_pawn   || piece == black_pawn)    {     
+                    int dx = x - c; 
+                    int dy = y - r; 
+
+                    int dir = (piece == white_pawn) ? +1 : -1; 
+
+                    if (dy == dir && (dx == 1 || dx == -1)) {
+                        legal = true; 
+                    }
+                }
+           
+                // if it is one square distance, then we can attack
+                if(piece == white_king || piece == black_king){
+                    if (abs(c - x) <= 1 && abs(r - y) <= 1)
+                        legal = true;
+                }
+            }
+
+            if (legal) return true; 
+        }
+    }
+
+    return false; // nop attacking piece was found
+}
+
+bool king_safe_after_my_move(wchar_t* move, wchar_t** board) {
+    if(!are_valid_coordinates(move)) {
+        return false; 
+    }
+    
+    // clone the board so we don't touech the real one 
+    wchar_t **tmp = clone_board(board);
+    
+    // apply the move 
+    int sx = move[0] - 'a', sy = move[1] - '1'; 
+    int dx = move[3] - 'a', dy = move[4] - '1'; 
+
+    wchar_t moving_piece = tmp[sy][sx]; 
+    tmp[dy][dx] = moving_piece; 
+    tmp[sy][sx] = empty; 
+
+    // locate the king 
+    int my_color    = get_color(moving_piece, 0); 
+    int enemy_color = get_color(moving_piece, 1); 
+
+    wchar_t my_king  = (my_color == 0) ? white_king : black_king; 
+    int kx = -1, ky = -1; 
+    for(int r = 0; r < 8; r++) {
+        if(ky != -1) {
+            break;  // micro-optimization 
+        }
+
+        for(int c = 0; c < 8; c++) {
+            if(tmp[r][c] == my_king) {
+                kx = c; 
+                ky = r; 
+                break; 
+            }
+        }
+    }
+    if(ky == -1) {
+        //VERY BAD, L-AM PIERDUT PE APA SAMBETEI PE REGE 
+        free_board(tmp);
+        return false; 
+    }
+    
+    bool in_check = square_attacked(tmp, kx, ky, enemy_color);
+
+    free_board(tmp);
+    return !in_check; // TRUE --> safe; FALSE --> in_check 
+}
+
+bool king_trav(wchar_t* move, wchar_t** board) {
+    if(!are_valid_coordinates(move)) {
+        wprintf(L"king_trav: are valid coordinates \n");
+        return true; 
+    }
+
+    int sx = move[0] - 'a', sy = move[1] - '1';
+    int dx = move[3] - 'a', dy = move[4] - '1';
+    int dx_raw = dx - sx, dy_raw = dy - sy; 
+
+    wchar_t src_piece = board[sy][sx]; 
+    int my_color = get_color(src_piece, 0);
+
+    // check if king (seems to be redundant, because in is_collision) I already check that 
+    if(src_piece != white_king && src_piece != black_king) {
+        return true; 
+    }
+
+    // castling 
+    if (is_castle_move(move)) {
+        bool legal = castling_trav(move, board,
+                                   white_king_moved, white_rook_h_moved, white_rook_a_moved, 
+                                   black_king_moved, black_rook_h_moved, black_rook_a_moved); 
+        wprintf(L"is_castle_move\n");
+        return legal;  
+    }
+
+    // normal king step: one square in any direction 
+    if((abs(dx_raw) > 1) || (abs(dy_raw) > 1) || (dx_raw == 0 && dy_raw == 0) ) {
+        wprintf(L"king_trav: too_far\n");
+        return true; // too far
+    }
+
+    wchar_t dst_piece = board[dy][dx]; 
+    if(dst_piece != empty && get_color(dst_piece, 0) == my_color) {
+        return true; 
+    }
+
+    if (!king_safe_after_my_move(move, board)) {
+        return true; 
+    }
+
+    return false; 
+}
+
+void pawn_promotion(wchar_t **board, int x, int y) {
+    wchar_t pawn = board[y][x];
+    int color = get_color(pawn, 0); 
+
+    wchar_t promoted = empty; 
+
+    wprintf(L"\nPawn reached the last rank – promotion time!\n");
+    wprintf(L"Choose a piece to promote to:\n");
+    wprintf(L"  Q  – Queen\n");
+    wprintf(L"  R  – Rook\n");
+    wprintf(L"  B  – Bishop\n");
+    wprintf(L"  N  – Knight\n");
+
+    while(promoted == empty) {
+        wprintf(L"Your choice:"); 
+        fflush(stdout);
+        
+        char buf[16];
+        if(!fgets(buf, sizeof(buf), stdin))
+            continue; 
+
+        char c = (char)tolower((unsigned char)buf[0]); 
+        switch(c) 
+        {
+            case 'q':
+                promoted = (color == 0) ? white_queen : black_queen; 
+                break;
+
+            case 'r':
+                promoted = (color == 0) ? white_rook : black_rook; 
+                break;
+
+
+            case 'b':
+                promoted = (color == 0) ? white_bishop : black_bishop; 
+                break;
+
+
+            case 'n':
+                promoted = (color == 0) ? white_knight : black_knight; 
+                break;
+
+            default:
+                wprintf(L"   Invalid choice - use Q, R, B, or N. \n"); 
+                break; 
+        }
+    }
+
+    board[y][x] = promoted; 
+    wprintf(L"Pawn promoted successfully!\n"); 
+    // wprintf(L"Promotion complete: pawn became a %ls.\n\n", (promoted==white_queen||promoted==black_queen)?L"queen": (promoted==white_rook ||promoted==black_rook )?L"rook" : (promoted==white_bishop||promoted==black_bishop)?L"bishop":L"knight");
+    
 }

@@ -23,15 +23,14 @@ int main() {
     printf("Connected to server. You are playing White.\n");
 
     while (1) {
-        // Prompt for White's move
         printf("Your move (White): ");
         fgets(buffer, BUFFER_SIZE, stdin);
         buffer[strcspn(buffer, "\n")] = 0;
 
-        // Send move to server
+        // send move to server
         send(sock, buffer, strlen(buffer), 0);
 
-        // Wait for Black's move
+        // wait for Black's move
         read(sock, buffer, BUFFER_SIZE);
         printf("Black played: %s\n", buffer);
     }

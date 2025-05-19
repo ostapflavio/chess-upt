@@ -53,6 +53,25 @@ void free_board(wchar_t** board) {
     free(board);
 }
 
+wchar_t** clone_board(wchar_t** src) {
+    wchar_t** dst = malloc(8 * sizeof(wchar_t*)); 
+    for(int r = 0; r < 8; r++) {
+        dst[r] = malloc(8 * sizeof(wchar_t)); 
+        for(int c = 0; c < 8; c++) {
+            dst[r][c] = src[r][c];
+        }
+    }
+
+    return dst; 
+}
+
+void make_move_on_board(wchar_t* move, wchar_t** board) {
+    int x1 = move[0] - 'a',  y1 = move[1] - '1'; 
+    int x2 = move[3] - 'a',  y2 = move[4] - '1'; 
+    board[y2][x2] = board[y1][x1]; 
+    board[y1][x1] = empty; 
+}
+
 void draw_board_white(wchar_t** board) {
     // step 2: print the board (for white)
     wprintf(L"   ");
