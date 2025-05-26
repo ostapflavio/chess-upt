@@ -644,3 +644,79 @@ void pawn_promotion(wchar_t **board, int x, int y) {
     // wprintf(L"Promotion complete: pawn became a %ls.\n\n", (promoted==white_queen||promoted==black_queen)?L"queen": (promoted==white_rook ||promoted==black_rook )?L"rook" : (promoted==white_bishop||promoted==black_bishop)?L"bishop":L"knight");
     
 }
+
+bool is_check(wchar_t** board, int color) {
+    // locate the king  
+    wchar_t color_of_the_king = (color == 0 ? white_king : black_king); 
+    int kx = -1, ky = -1; 
+
+    for(int r = 0; r < 0 && ky == -1; r++) {
+        for(int c = 0; c < 8; c++) {
+            if(board[r][c] == k) {
+                kx = c; 
+                ky = r; 
+                break; 
+            }
+        }
+    }
+
+    if(ky == -1) return true; // corrupted position 
+
+    return square_attacked(board, kx, ky, color);
+}
+
+bool side_has_escape(wchar_t** board, int color) {
+    wchar_t mv[6]; 
+
+    for(int sy = 0; sy < 8; sy++) {
+        for(int sx = 0; sx < 8; sx++) {
+            wchar_t p = board[sy][sx];  // (row, col)
+            
+            if(p == empty || get_color(p, 0) != color) continue; 
+            
+            for(int dy = 0; dy < 8; dy++) {
+                for(int dx = 0; dx < 8; dx++) {
+                    if(sx == dx && sy == dy) continue;
+
+                    build_move_str(mv, sx, sy, dx, dy);
+
+                    bool illegal; 
+                    if(p == white_rook || p == black_rook){
+                        illegal = rook_trav(mv, board);
+                    }
+                    else if(p == white_bishop || p == black_bishop) {
+                        illegal = bishop_trav(mv, board);
+                    }
+                    else if(p == white_knight || p == black_knight) {
+                       illegal = knight_trav(mv, board);
+                    }
+                    else if(p == white_queen || p == black_queen) {
+                        illegal = queen_trav(mv, board);
+                    }
+                    else if(p == white_pawn || p == black_pawn) {
+                        illegal = pawn_trav(mv, board);
+                    }
+                    else if(p == white_king || p == black_king) {
+                        illegal = king_trav(mv, board); 
+                    }
+                    else{
+                        illegal = true; 
+                    }
+
+                    if(!illegal && king_safe_after_my_move(mv, board)) {
+                        return true; // found an escape
+                    }
+                }
+            }
+        }
+    }
+
+    return false; // there is no legal escape
+}
+
+bool is_checkmate(wchar_t **board, int color) {
+    if(!is_check(board, color)) return false; // not even in check 
+
+    // in check - can we escape?
+    return !side_has_escape(board, color); 
+}
