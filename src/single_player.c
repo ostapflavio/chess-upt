@@ -30,7 +30,7 @@ void safe_read(char* buf, size_t n) {
         wprintf(L"stdin closed.\n can't read anymore. \n"); 
         exit(1); 
     }
-    buf[strcspn(buf, '\n')] = '\0'; 
+    buf[strcspn(buf, "\n")] = '\0'; 
 }
 
 // prompt until the entered move is fully legal 
@@ -88,11 +88,15 @@ int main() {
         bool pawn_moved   = (moving_piece == white_pawn || moving_piece == black_pawn); 
         bool capture_made =  (captured_piece != empty); 
 
-        make_move_on_board(wmove, board); 
+        bool is_ok = apply_move_on_board(wmove, board, 0); 
+        if(!is_ok) {
+            fprintf(stderr, "UNPRECEDENTED ERROR HAPPENED! WE CANNOT MAKE TRHIS MOVE!\n"); 
+            exit(EXIT_FAILURE);
+        }
 
         game_state_update_castling_on_move(sx, sy, dx, dy, moving_piece, captured_piece );
 
-        update_after_move(pawn_moved, capture_made, 1 - side_to_move, game_state_current_castling_flags()); 
+        update_after_move(pawn_moved, capture_made, board,  1 - side_to_move, game_state_current_castling_flags()); 
 
         clear_screen(); 
         if(side_to_move == 0) {
@@ -110,7 +114,7 @@ int main() {
             wprintf(L"Stalemate - draw.\n");
             break; 
         }
-        if(is_threfold_draw()) {
+        if(is_threefold_draw()) {
             wprintf(L"Draw by three-fold repetition. \n"); 
             break; 
         }

@@ -854,7 +854,7 @@ unsigned game_state_current_castling_flags(){
     return f; 
 }
 
-wchar_t* position_hash(const wchar_t** board, int side_to_move, unsigned flags) {
+wchar_t* position_hash(wchar_t** board, int side_to_move, unsigned flags) {
     wchar_t *s = malloc(sizeof(wchar_t) * 80), *p = s; 
 
     for(int r = 7; r >= 0; r--) {
@@ -879,7 +879,7 @@ wchar_t* position_hash(const wchar_t** board, int side_to_move, unsigned flags) 
 
 void reset_draw_trackers() {
     for(int i = 0; i < history_len; i++) {
-        free(history[i]);
+        free(history[i]); 
     }
 
     history_len = 0; 
@@ -902,7 +902,7 @@ bool is_stalemate(wchar_t **board, int side_to_move) {
 bool is_threefold_draw() {
     if (history_len < 3) return false; 
 
-    const wchar_t *last = history[history_len - 1]; 
+    wchar_t *last = history[history_len - 1]; 
     int count = 0; 
     for(int i = 0; i < history_len; i++) {
         if(wcscmp(last, history[i]) == 0 && ++count == 3) {
