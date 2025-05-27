@@ -1,6 +1,7 @@
 // movement helper functions 
 #include "../headers/chess_helper.h"
 #include "../headers/board.h"
+#include "../headers/game_state.h"
 #include <ctype.h>
 
 // these variables are used to keep track of the game state 
@@ -300,7 +301,8 @@ bool is_vertical(wchar_t* move) {
 
 // is_collision is also a function which verifies validity of the move, kek (there is a collision.... with logic....)
 bool is_collision(wchar_t* move, wchar_t** board) { 
-    // TODO: terminate to implement is_collision function 
+    // true  --> illegal 
+    // false --> legal 
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
     int coord2[]     = {move[3] - 'a', move[4] - '1'}; 
     int x1           = coord1[0], y1 = coord1[1]; 
@@ -308,7 +310,6 @@ bool is_collision(wchar_t* move, wchar_t** board) {
     wchar_t piece = board[y1][x1];
     
     int color        = get_color(piece, 0);
-    int enemy_color  = get_color(piece, 1);
     bool flag = true; 
 
     if(color == -1) {
@@ -647,12 +648,12 @@ void pawn_promotion(wchar_t **board, int x, int y) {
 
 bool is_check(wchar_t** board, int color) {
     // locate the king  
-    wchar_t color_of_the_king = (color == 0 ? white_king : black_king); 
+    wchar_t color_of_the_king = (color == 0 ? white_king : black_king);
     int kx = -1, ky = -1; 
 
-    for(int r = 0; r < 0 && ky == -1; r++) {
+    for(int r = 0; r < 8 && ky == -1; r++) {
         for(int c = 0; c < 8; c++) {
-            if(board[r][c] == k) {
+            if(board[r][c] == color_of_the_king) {
                 kx = c; 
                 ky = r; 
                 break; 
@@ -662,7 +663,7 @@ bool is_check(wchar_t** board, int color) {
 
     if(ky == -1) return true; // corrupted position 
 
-    return square_attacked(board, kx, ky, color);
+    return square_attacked(board, kx, ky, 1 - color);
 }
 
 bool side_has_escape(wchar_t** board, int color) {
@@ -719,4 +720,199 @@ bool is_checkmate(wchar_t **board, int color) {
 
     // in check - can we escape?
     return !side_has_escape(board, color); 
+}
+
+// the most important function in whole project
+bool apply_move_on_board(wchar_t* move, wchar_t** board, char promo_choice) {
+    if(!are_valid_coordinates(move)) {
+        return false; 
+    }
+
+    if(is_collision(move, board)) {
+        // here we also verify if the move makes sense for our piece)))))))))))))
+        return false; 
+    }
+
+    if(!king_safe_after_my_move(move, board)) {
+        return false; 
+    }
+
+    // copy of variables in order to roll back in case of failure
+    // listen here: we don't need these copies, because incorrect moves are already checked in is_collision funjction 
+    //bool wK = white_king_moved, bK = black_king_moved;  
+    //bool wRh = white_rook_h_moved, bRh = black_rook_h_moved; 
+    //bool wRa = white_rook_a_moved, bRa = black_rook_a_moved; 
+
+    int sx = move[0] - 'a', sy = move[1] - '1';
+    int dx = move[3] - 'a', dy = move[4] - '1';
+
+    // apply the move on the real board 
+    wchar_t piece = board[sy][sx];
+    board[dy][dx] = piece; 
+    board[sx][sy] = empty; 
+
+    // in case of castling: we also must shift the rooks + change the values of flags 
+    if(piece == white_king || piece == black_king) {
+        if(piece == white_king) {
+            white_king_moved = true; 
+        }
+        else{
+            black_king_moved = true; 
+        }
+
+        // kingside or queenside?????
+        if(abs(dx - sx) == 2) {
+            // rook from h-file or a-file
+            if(dx == 6) {
+                // we move the rook to the kingside i.e. queenside castling 
+                board[dy][5] = board[dy][7];
+                board[dy][7] = empty; 
+                if(piece == white_king) {
+                    white_rook_h_moved = true; 
+                }
+                else{
+                    black_rook_h_moved = true; 
+                }
+            }
+            else{
+                // we move the rook to the queenside i.e. kingside castling 
+                board[dy][3] = board[dy][0]; 
+                board[dy][0] = empty; 
+                if(piece == white_king) {
+                    white_rook_a_moved = true; 
+                }
+                else{
+                    black_rook_a_moved = true; 
+                }
+            }
+        }
+    }
+
+    // in case just rook moves, change the state 
+    else if(piece == white_rook && sy == 0 && sx == 0) white_rook_a_moved = true; 
+    else if(piece == white_rook && sy == 0 && sx == 7) white_rook_h_moved = true; 
+    else if(piece == black_rook && sy == 7 && sx == 0) black_rook_a_moved = true; 
+    else if(piece == black_rook && sy == 7 && sx == 7) black_rook_h_moved = true; 
+
+    // pawn promotion if needed
+    if((piece == white_pawn && dy == 7) || (piece == black_pawn && dy == 0)) {
+        if(promo_choice == 0) {
+            pawn_promotion(board, dx, dy); // asks the player 
+        }
+        else{
+            //NOTE: this else block should never be exercuted, because the user doen't have the access to the code
+            // so, the whole promotion will be handled inside of pawn_promotion function 
+            wchar_t new_piece = (promo_choice == 'q') ? (piece == white_pawn ? white_queen : black_queen) :
+                                (promo_choice == 'r') ? (piece == white_pawn ? white_rook : black_rook) : 
+                                (promo_choice == 'b') ? (piece == white_pawn ? white_bishop : black_bishop) :
+                                (promo_choice == 'n') ? (piece == white_pawn ? white_knight : black_knight) : 
+                                piece;  // dummy, just for fallback 
+           
+            board[dy][dx] = new_piece; 
+        }
+
+    }
+
+    // success, if we haven't reached this step --> something is wrong from above; 
+    return true; 
+}
+
+bool correct_pos(int x, int y, int target_x, int target_y) {
+    return x == target_x && y == target_y;
+}
+
+void game_state_update_castling_on_move(int sx, int sy, int dx, int dy, wchar_t moved, wchar_t taken) {
+    if (moved == white_king) white_king_moved = true; 
+    if (moved == black_king) black_king_moved = true; 
+
+    if(moved == white_rook) {
+        if(correct_pos(sx, sy, 7, 0)) white_rook_h_moved = true; 
+        if(correct_pos(sx, sy, 0, 0)) white_rook_a_moved = true; 
+    }
+    if(moved == black_rook) {
+        if(correct_pos(sx, sy, 7, 7)) black_rook_h_moved = true; 
+        if(correct_pos(sx, sy, 0, 7)) black_rook_a_moved = true; 
+    }
+
+    if(taken == white_rook) {
+        if(correct_pos(dx, dy, 7, 0)) white_rook_h_moved = true; 
+        if(correct_pos(dx, dy, 0, 0)) white_rook_a_moved = true; 
+    }
+    if(taken == black_rook) {
+        if(correct_pos(dx, dy, 7, 7)) black_rook_h_moved = true; 
+        if(correct_pos(dx, dy, 0, 7)) black_rook_a_moved = true; 
+    }
+}
+
+unsigned game_state_current_castling_flags(){
+    unsigned f = 0; 
+    // avem bitwise operations 
+    if(!white_king_moved && !white_rook_h_moved) f |= CASTLE_WHITE_K;
+    if(!white_king_moved && !white_rook_a_moved) f != CASTLE_WHITE_Q; 
+    if(!black_king_moved && !black_rook_h_moved) f != CASTLE_BLACK_K;
+    if(!black_king_moved && !black_rook_a_moved) f != CASTLE_BLACK_Q; 
+    return f; 
+}
+
+wchar_t* position_hash(const wchar_t** board, int side_to_move, unsigned flags) {
+    wchar_t *s = malloc(sizeof(wchar_t) * 80), *p = s; 
+
+    for(int r = 7; r >= 0; r--) {
+        for(int c =0; c < 8; c++) {
+            *p++ = board[r][c]; 
+        }
+    }
+
+    *p++ = side_to_move ? L'b' : L'w';
+
+    if (!flags) *p++ = L'-';
+    else{
+        if(flags & CASTLE_WHITE_K) *p++ = L'K';
+        if(flags & CASTLE_WHITE_Q) *p++ = L'Q';
+        if(flags & CASTLE_BLACK_K) *p++ = L'k';
+        if(flags & CASTLE_BLACK_Q) *p++ = L'q';
+    }
+
+    *p = L'\0'; 
+    return s; 
+}
+
+void reset_draw_trackers() {
+    for(int i = 0; i < history_len; i++) {
+        free(history[i]);
+    }
+
+    history_len = 0; 
+    halfmove_clock = 0; 
+}
+
+void update_after_move(bool pawn_moved, bool capture_made, wchar_t **board_after, int side_to_move, unsigned castling_bits) {
+    halfmove_clock = (pawn_moved || capture_made) ? 0 : halfmove_clock + 1; 
+
+    if(history_len < MAX_HISTORY) {
+        history[history_len++] = position_hash(board_after, side_to_move, castling_bits); 
+    }
+}
+
+bool is_stalemate(wchar_t **board, int side_to_move) {
+    if(is_check((wchar_t**)board, side_to_move)) return false; 
+    return !side_has_escape(board, side_to_move); 
+}
+
+bool is_threefold_draw() {
+    if (history_len < 3) return false; 
+
+    const wchar_t *last = history[history_len - 1]; 
+    int count = 0; 
+    for(int i = 0; i < history_len; i++) {
+        if(wcscmp(last, history[i]) == 0 && ++count == 3) {
+            return true; 
+        }
+    }
+
+    return false; 
+}
+
+bool is_50move_draw() {
+    return halfmove_clock >= 100; 
 }

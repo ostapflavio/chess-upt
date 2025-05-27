@@ -1,40 +1,24 @@
+#include "client.h"
+#include "net.h"            /* connect_to_server() */
+#include "game_loop.h"      /* game_loop(), BLACK */
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <arpa/inet.h>
 
-#define PORT 12345
-#define BUFFER_SIZE 1024
+int run_client(const char *addr, int port)
+{
+    printf("Connecting to %s:%d …\n", addr, port);
+    int sock = connect_to_server(addr, port);
+    puts("Connected!");
+    return game_loop(sock, BLACK);
+}
 
-int main() {
-    int sock = 0;
-    struct sockaddr_in serv_addr;
-    char buffer[BUFFER_SIZE] = {0};
-
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(PORT);
-
-    // Connect to localhost
-    inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-    connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
-
-    printf("Connected to server. You are playing White.\n");
-
-    while (1) {
-        printf("Your move (White): ");
-        fgets(buffer, BUFFER_SIZE, stdin);
-        buffer[strcspn(buffer, "\n")] = 0;
-
-        // send move to server
-        send(sock, buffer, strlen(buffer), 0);
-
-        // wait for Black's move
-        read(sock, buffer, BUFFER_SIZE);
-        printf("Black played: %s\n", buffer);
+int main(int argc, char **argv)
+{
+    const char *addr = (argc > 1) ? argv[1] : "127.0.0.1";
+    int  port       = (argc > 2) ? atoi(argv[2]) : 12345;
+    if (port <= 0 || port > 65535) {
+        fprintf(stderr, "Invalid port number.\n");
+        return 1;
     }
-
-    close(sock);
-    return 0;
+    return run_client(addr, port);
 }

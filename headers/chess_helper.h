@@ -9,8 +9,18 @@
 #include <string.h>
 #include "chess_symbols.h"
 
+
+#define CASTLE_WHITE_K  1
+#define CASTLE_WHITE_Q  2
+#define CASTLE_BLACK_K  4
+#define CASTLE_BLACK_Q  8
+
 extern bool white_king_moved, white_rook_h_moved, white_rook_a_moved;
 extern bool black_king_moved, black_rook_h_moved, black_rook_a_moved;
+extern const int MAX_HISTORY; 
+extern int halfmove_clock, history_len;
+extern wchar_t* history; 
+
 
 bool are_valid_coordinates(wchar_t* move); 
 bool is_diagonal(wchar_t* move); 
