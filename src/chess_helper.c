@@ -39,11 +39,11 @@ int get_color(wchar_t piece, int need_enemy) {
 // FALSE: the path is clear (can move)
 bool bishop_trav(wchar_t* move, wchar_t** board) {
     if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: bishop_trav() \n"); 
+        // fprintf(stderr, "source: bishop_trav() \n"); 
         return true; 
     }
     if(!is_diagonal(move)) {
-        fprintf(stderr, "source: bishop_trav(), this is not a diagonal move!\n");
+        // fprintf(stderr, "source: bishop_trav(), this is not a diagonal move!\n");
         return true; 
     }
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
@@ -57,7 +57,7 @@ bool bishop_trav(wchar_t* move, wchar_t** board) {
     bool is_occupied = false; 
     int x = x1 + dx, y = y1 + dy; 
     while(true) {
-        wprintf(L"x = %d and y = %d \n", x, y); 
+        // wprintf(L"x = %d and y = %d \n", x, y); 
         if(x == x2 && y == y2) {
             if(get_color(board[y][x], 0) == get_color(board[y1][x1], 0)){
                     is_occupied = true; 
@@ -73,7 +73,7 @@ bool bishop_trav(wchar_t* move, wchar_t** board) {
         y += dy; 
     }
     
-    wprintf(L"\n"); 
+    // wprintf(L"\n"); 
     return is_occupied; 
 }
 
@@ -108,12 +108,12 @@ bool knight_trav(wchar_t* move, wchar_t** board) {
 // FALSE: the path is clear (can move)
 bool rook_trav(wchar_t* move, wchar_t** board) {
      if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: rook_trav() \n"); 
+        // fprintf(stderr, "source: rook_trav() \n"); 
         return true; 
     }
 
     if(!(is_horizontal(move) || is_vertical(move))) {
-        fprintf(stderr, "source: rook_trav(), this is not a horizontal or vertical move!\n");
+        // fprintf(stderr, "source: rook_trav(), this is not a horizontal or vertical move!\n");
         return true; 
     }
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
@@ -139,14 +139,14 @@ bool rook_trav(wchar_t* move, wchar_t** board) {
 }
 bool queen_trav(wchar_t* move, wchar_t** board) {
     if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: queen_trav() \n"); 
+        // fprintf(stderr, "source: queen_trav() \n"); 
         return true; 
     }
 
     bool straight_line = is_vertical(move) || is_horizontal(move);
     bool diagonal_line = is_diagonal(move); 
     if (!(straight_line || diagonal_line)){
-        fprintf(stderr, "source: queen_trav(), this is a knight or another bogus move for queen!\n");
+        // fprintf(stderr, "source: queen_trav(), this is a knight or another bogus move for queen!\n");
         return true;                              /* queen can’t move like that*/
     }
     int coord1[]     = {move[0] - 'a', move[1] - '1'}; 
@@ -243,7 +243,7 @@ bool pawn_trav(wchar_t *move, wchar_t** board)
 }
 bool are_valid_coordinates(wchar_t* move) {
     if(!move || wcslen(move) != 5 || move[2] != L'-') {
-        fprintf(stderr, "ERROR (are_valid_coordinates()): we have incorrect coordinates!\n"); 
+        // fprintf(stderr, "ERROR (are_valid_coordinates()): we have incorrect coordinates!\n"); 
         return false; 
     }
 
@@ -253,7 +253,7 @@ bool are_valid_coordinates(wchar_t* move) {
     int l2 = move[3] - 'a'; 
     int d2 = move[4] - '1'; 
     if(l1 == l2 && d1 == d2)  {
-        fprintf(stderr, "ERROR (are_valid_coordinates()): we cannot move to the same square!\n"); 
+        // fprintf(stderr, "ERROR (are_valid_coordinates()): we cannot move to the same square!\n"); 
         return false; 
     }
 
@@ -264,7 +264,7 @@ bool are_valid_coordinates(wchar_t* move) {
 
 bool is_diagonal(wchar_t* move) {
     if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: is_diagonal() \n"); 
+        // fprintf(stderr, "source: is_diagonal() \n"); 
         return false; 
     }
 
@@ -276,7 +276,7 @@ bool is_diagonal(wchar_t* move) {
 
 bool is_horizontal(wchar_t* move) {
     if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: is_horizontal() \n"); 
+        // fprintf(stderr, "source: is_horizontal() \n"); 
         return false; 
     }
 
@@ -288,7 +288,7 @@ bool is_horizontal(wchar_t* move) {
 
 bool is_vertical(wchar_t* move) {
      if(!are_valid_coordinates(move)) {
-        fprintf(stderr, "source: is_vertical() \n"); 
+        // fprintf(stderr, "source: is_vertical() \n"); 
         return false; 
     }
 
@@ -549,7 +549,7 @@ bool king_safe_after_my_move(wchar_t* move, wchar_t** board) {
 
 bool king_trav(wchar_t* move, wchar_t** board) {
     if(!are_valid_coordinates(move)) {
-        wprintf(L"king_trav: are valid coordinates \n");
+        // wprintf(L"king_trav: are valid coordinates \n");
         return true; 
     }
 
@@ -570,13 +570,13 @@ bool king_trav(wchar_t* move, wchar_t** board) {
         bool legal = castling_trav(move, board,
                                    white_king_moved, white_rook_h_moved, white_rook_a_moved, 
                                    black_king_moved, black_rook_h_moved, black_rook_a_moved); 
-        wprintf(L"is_castle_move\n");
+        //wprintf(L"is_castle_move\n");
         return legal;  
     }
 
     // normal king step: one square in any direction 
     if((abs(dx_raw) > 1) || (abs(dy_raw) > 1) || (dx_raw == 0 && dy_raw == 0) ) {
-        wprintf(L"king_trav: too_far\n");
+        //wprintf(L"king_trav: too_far\n");
         return true; // too far
     }
 
@@ -749,7 +749,7 @@ bool apply_move_on_board(wchar_t* move, wchar_t** board, char promo_choice) {
     // apply the move on the real board 
     wchar_t piece = board[sy][sx];
     board[dy][dx] = piece; 
-    board[sx][sy] = empty; 
+    board[sy][sx] = empty; 
 
     // in case of castling: we also must shift the rooks + change the values of flags 
     if(piece == white_king || piece == black_king) {

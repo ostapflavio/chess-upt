@@ -99,9 +99,10 @@ int main() {
         update_after_move(pawn_moved, capture_made, board,  1 - side_to_move, game_state_current_castling_flags()); 
 
         clear_screen(); 
-        if(side_to_move == 0) {
-            draw_board_black(board);
+        if(side_to_move == 0){
+            draw_board_black(board); 
         }
+
         else{
             draw_board_white(board);
         }

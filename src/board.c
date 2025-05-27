@@ -72,52 +72,54 @@ void make_move_on_board(wchar_t* move, wchar_t** board) {
     board[y1][x1] = empty; 
 }
 
-void draw_board_white(wchar_t** board) {
-    // step 2: print the board (for white)
-    wprintf(L"   ");
-    for(int i = 0; i < 8; i++) {
-        wprintf(L"%c ", (wchar_t)('a' + i)); 
-    }
-    wprintf(L"\n"); 
-    for(int row = 7; row >= 0; row--) {
-        wprintf(L"  +-+-+-+-+-+-+-+-+\n");
-        wprintf(L"%d ", row + 1); 
-        for(int col = 0; col < 8; col++) {
-            wprintf(L"|%lc", board[row][col]);
+void draw_board_white(wchar_t **board)
+{
+    wprintf(L"    a   b   c   d   e   f   g   h\n");
+    wprintf(L"  +---+---+---+---+---+---+---+---+\n");
+
+    /* rank 8 down to 1 */
+    for (int r = 7; r >= 0; --r) {
+        wprintf(L"%d |", r + 1);                 /* left rank number */
+
+        for (int c = 0; c < 8; ++c) {            /* a → h */
+            wchar_t sq = board[r][c];
+            if (sq == empty)
+                wprintf(L"   |");
+            else
+                wprintf(L" %lc |", sq);
         }
-        wprintf(L"| %d\n", row + 1); 
+
+        wprintf(L" %d\n", r + 1);                /* right rank number */
+        wprintf(L"  +---+---+---+---+---+---+---+---+\n");
     }
 
-    wprintf(L"  +-+-+-+-+-+-+-+-+\n");
-    wprintf(L"   ");
-    for(int i = 0; i < 8; i++) {
-        wprintf(L"%c ", (wchar_t)('a' + i)); 
-    }
-    wprintf(L"\n");
-    wprintf(L"happy exit!\n");
+    wprintf(L"    a   b   c   d   e   f   g   h\n");
 }
 
-void draw_board_black(wchar_t** board) {
-    wprintf(L"   ");
-    for(int i = 0; i < 8; i++) {
-        wprintf(L"%c ", (wchar_t)('h' - i)); 
-    }
-    wprintf(L"\n"); 
-    for(int row = 0; row < 8; row++) {
-        wprintf(L"  +-+-+-+-+-+-+-+-+\n");
-        wprintf(L"%d ", row + 1); 
-        for(int col = 0; col < 8; col++) {
-            wprintf(L"|%lc", board[row][col]);
+void draw_board_black(wchar_t **board)
+{
+    /* file letters shown from Black’s perspective: h g … a            */
+    wprintf(L"    h   g   f   e   d   c   b   a\n");
+    wprintf(L"  +---+---+---+---+---+---+---+---+\n");
+
+    /* rank 1 (index 0) should be printed first, rank 8 last           */
+    for (int r = 0; r < 8; ++r) {
+        wprintf(L"%d |", r + 1);                 /* left rank number  */
+
+        /* traverse files right-to-left (h → a)                        */
+        for (int c = 7; c >= 0; --c) {
+            wchar_t sq = board[r][c];
+            if (sq == empty)
+                wprintf(L"   |");
+            else
+                wprintf(L" %lc |", sq);
         }
-        wprintf(L"| %d\n", row + 1); 
+
+        wprintf(L" %d\n", r + 1);                /* right rank number */
+        wprintf(L"  +---+---+---+---+---+---+---+---+\n");
     }
 
-    wprintf(L"  +-+-+-+-+-+-+-+-+\n");
-    wprintf(L"   ");
-    for(int i = 0; i < 8; i++) {
-        wprintf(L"%c ", (wchar_t)('h' - i)); 
-    }
-    wprintf(L"\n"); 
+    wprintf(L"    h   g   f   e   d   c   b   a\n");
 }
 
 void clear_screen() {
